@@ -272,7 +272,12 @@ if os.path.exists(dist_dir):
     # Mount assets
     app.mount("/assets", StaticFiles(directory=os.path.join(dist_dir, "assets")), name="assets")
     
-    # Serve SPA
+    # Serve index.html at root
+    @app.get("/")
+    async def serve_root():
+        return FileResponse(os.path.join(dist_dir, "index.html"))
+
+    # Serve SPA for other paths
     @app.get("/{full_path:path}")
     async def serve_spa(full_path: str):
         # Check if file exists in dist
