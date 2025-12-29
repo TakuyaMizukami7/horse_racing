@@ -306,8 +306,6 @@ const RaceInput = () => {
                                 </button>
                         </div>
 
-                        )}
-
                         {predictions && (
                                 <>
                                         <div className="card" style={{ marginTop: '40px', borderColor: 'var(--accent-gold)' }}>

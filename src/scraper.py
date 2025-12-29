@@ -314,7 +314,15 @@ def scrape_race_card(url):
                     wakuban = 1
                 
                 name_span = row.find("span", class_="HorseName")
-                name = name_span.text.strip() if name_span else "Unknown"
+                if name_span:
+                    name = name_span.text.strip()
+                else:
+                    # Fallback: Try to find link to horse page
+                    name_link = row.find("a", href=re.compile(r"/horse/"))
+                    if name_link:
+                        name = name_link.get("title") or name_link.text.strip()
+                    else:
+                        name = "Unknown"
                 
                 jockey_td = row.find("td", class_="Jockey")
                 jockey = jockey_td.text.strip() if jockey_td else "Unknown"
