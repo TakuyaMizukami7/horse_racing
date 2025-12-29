@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+.pytest_cache/
+
+# Node
+node_modules/
+dist/
+public/
+frontend/dist/
+frontend/node_modules/
+
+# Logs
+*.log
+backend_error.log
+
+# Mac
+.DS_Store
