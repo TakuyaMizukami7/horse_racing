@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-        baseURL: 'http://localhost:8000/api', // FastAPI URL
+        baseURL: '/api', // Relative URL for deployment
 });
 
 export const getRaces = async () => {

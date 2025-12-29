@@ -51,7 +51,7 @@ const RaceInput = () => {
                 if (!url) return;
                 setScraping(true);
                 try {
-                        const response = await axios.post('http://localhost:8000/api/scrape_race', { url });
+                        const response = await axios.post('/api/scrape_race', { url });
                         const data = response.data;
 
                         if (data) {
@@ -98,7 +98,7 @@ const RaceInput = () => {
                                 }))
                         };
 
-                        const response = await axios.post('http://localhost:8000/api/predict_custom', payload);
+                        const response = await axios.post('/api/predict_custom', payload);
                         setPredictions(response.data.predictions);
                 } catch (error) {
                         console.error("Prediction failed:", error);
