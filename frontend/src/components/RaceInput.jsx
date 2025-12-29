@@ -115,6 +115,21 @@ const RaceInput = () => {
                                 <p className="card-subtitle">Enter race details and participating horses.</p>
                         </div>
 
+                        {/* Usage Instructions */}
+                        <div className="card" style={{ marginBottom: '24px', backgroundColor: 'rgba(255, 255, 255, 0.05)', border: '1px solid var(--border-color)' }}>
+                                <div className="card-header">
+                                        <h2 className="card-title">How to Use</h2>
+                                </div>
+                                <div style={{ padding: '0 20px 20px 20px', lineHeight: '1.6' }}>
+                                        <ol style={{ paddingLeft: '20px', margin: 0 }}>
+                                                <li><strong>Paste Netkeiba URL</strong>: Copy the URL of a race card (Shutuba) from netkeiba.com (e.g., specific race page).</li>
+                                                <li><strong>Fetch Data</strong>: Click the "Fetch Data" button to automatically fill in race conditions and horse details.</li>
+                                                <li><strong>Review & Edit</strong>: Check the populated information. You can manually adjust conditions or add/remove horses if needed.</li>
+                                                <li><strong>Run Prediction</strong>: Click "Run Prediction" at the bottom to see the AI's predicted ranking and winning probabilities.</li>
+                                        </ol>
+                                </div>
+                        </div>
+
                         <div className="card" style={{ marginBottom: '24px', borderLeft: '4px solid var(--accent-gold)' }}>
                                 <div className="card-header">
                                         <h2 className="card-title">Auto-Fill from URL</h2>
