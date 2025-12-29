@@ -260,19 +260,36 @@ def predict_custom(request: CustomRaceRequest):
 
 # Config for serving static files (Frontend)
 # Ensure this comes AFTER API routes
-if os.path.exists("frontend"):
-    # If dist exists (production/build), serve it
-    if os.path.exists("frontend/dist"):
-        app.mount("/assets", StaticFiles(directory="frontend/dist/assets"), name="assets")
-        
-        @app.get("/{full_path:path}")
-        async def serve_spa(full_path: str):
-            # Check if file exists in dist
-            file_path = os.path.join("frontend/dist", full_path)
-            if os.path.exists(file_path) and os.path.isfile(file_path):
-                return FileResponse(file_path)
-            # Otherwise serve index.html
-            return FileResponse("frontend/dist/index.html")
+
+# Get absolute path to frontend/dist to ensure it works in any working directory
+current_dir = os.path.dirname(os.path.abspath(__file__))
+dist_dir = os.path.join(current_dir, "frontend", "dist")
+
+print(f"Checking for frontend/dist at: {dist_dir}")
+
+if os.path.exists(dist_dir):
+    print("Frontend build found! Serving static files...")
+    # Mount assets
+    app.mount("/assets", StaticFiles(directory=os.path.join(dist_dir, "assets")), name="assets")
+    
+    # Serve SPA
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        # Check if file exists in dist
+        file_path = os.path.join(dist_dir, full_path)
+        if os.path.exists(file_path) and os.path.isfile(file_path):
+            return FileResponse(file_path)
+        # Otherwise serve index.html
+        return FileResponse(os.path.join(dist_dir, "index.html"))
+else:
+    print(f"Frontend build NOT found at {dist_dir}")
+    @app.get("/")
+    async def root():
+        return {
+            "message": "Frontend build not found. Please run 'npm run build' in frontend directory.",
+            "search_path": dist_dir
+        }
+
 
 if __name__ == "__main__":
     import uvicorn
